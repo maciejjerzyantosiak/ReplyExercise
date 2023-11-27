@@ -1,11 +1,7 @@
 ﻿using OpenQA.Selenium;
-using Reply.AutomationFramework.Drivers;
+using OpenQA.Selenium.Interactions;
+using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
@@ -13,12 +9,20 @@ namespace Reply.Tests.Pages
     public class Home
     {
         private readonly ScenarioContext _scenarioContext;
+        private PageLoader _pageLoader;
         public Home(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
+            _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
         }
-        IWebElement salesMarketing => _scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver.FindElement(By.Id("grouptab-1"));
-
+        IWebElement salesMarketing => _pageLoader.GetVisibleElement(By.Id("grouptab-1"));
+        IWebElement contacts => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=Contacts&action=index']"));
         public void ClickSalesMarketing() => salesMarketing.Click();
+        public void ClickContacts() => contacts.Click();
+        public void HoverOverSalesMarketing()
+        {
+            Actions action = new Actions(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
+            action.MoveToElement(salesMarketing).Perform();
+        }
     }
 }

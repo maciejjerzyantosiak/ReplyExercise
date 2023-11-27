@@ -1,6 +1,5 @@
 ﻿using TechTalk.SpecFlow;
 using Reply.AutomationFramework.Helpers;
-using Reply.AutomationFramework.Drivers;
 using Reply.AutomationFramework.Setup;
 
 namespace Reply.Tests.Hooks
@@ -8,7 +7,6 @@ namespace Reply.Tests.Hooks
     [Binding]
     public class HookInitialization
     {
-        //private SeleniumDriver _seleniumDriver;
         private readonly ScenarioContext _scenarioContext;
 
         public HookInitialization(ScenarioContext scenarioContext)

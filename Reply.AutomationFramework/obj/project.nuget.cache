@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "PdbBxN2p94PcaZYdBQo5NIYQrb/D95xX14fj9PS7LdtrqV588JHxe50/G6HL1PFEnr4J5Vz0UgIfUzUGM5ma4w==",
+  "dgSpecHash": "qCpAe6zX2RK+duKgFaM+IxEVOA0l6EmRdLwCgpbEM49LA+SnqZ/IZ3LQr2Crt1VhOUG8QehcrtbtNKc4EYeIpQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\macie\\Documents\\Projects\\DotNet\\ReplyExercise\\Reply.AutomationFramework\\Reply.AutomationFramework.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\macie\\.nuget\\packages\\dotnetseleniumextras.waithelpers\\3.11.0\\dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.extensions.configuration\\8.0.0\\microsoft.extensions.configuration.8.0.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\8.0.0\\microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\8.0.0\\microsoft.extensions.configuration.fileextensions.8.0.0.nupkg.sha512",

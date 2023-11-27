@@ -9,16 +9,8 @@ namespace Reply.AutomationFramework.Helpers
         public static IConfiguration AppSetting { get; }
         static ConfigurationManager()
         {
-            var test = System.AppDomain.CurrentDomain.BaseDirectory;
-            test = Path.Combine(test, @"..\..\..\..");
-            /*AppSetting = new ConfigurationBuilder()
-                    .AddJsonFile(test + "\\appsettings.json")
-                    .Build();*/
-
-
-
-
-            JsonTextReader reader = new JsonTextReader(new StringReader(test + "\\appsettings.json"));
+            var config_dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\..");
+            JsonTextReader reader = new JsonTextReader(new StringReader(config_dir + "\\appsettings.json"));
         }
 
         public static void config()

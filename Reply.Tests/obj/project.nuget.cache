@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "S6J2XCflqFiXSeqU3aAbVPVDl/kTFhBAJ9EULM89R2QSH2j1EjDbwABtw5EsHTqA92UK3+G3u0A1/U7G9vmRwA==",
+  "dgSpecHash": "Q1feiow2GKtDzECG7PIIuyy/gLoFHbi4TozuWZGZgmmWpgYFuyZUsUiHNuKJf5StGJWRNb8jYnsokrGJVG66pg==",
   "success": true,
   "projectFilePath": "C:\\Users\\macie\\Documents\\Projects\\DotNet\\ReplyExercise\\Reply.Tests\\Reply.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\macie\\.nuget\\packages\\bodi\\1.5.0\\bodi.1.5.0.nupkg.sha512",
+    "C:\\Users\\macie\\.nuget\\packages\\dotnetseleniumextras.waithelpers\\3.11.0\\dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\dynamitey\\2.0.9.136\\dynamitey.2.0.9.136.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\gherkin\\19.0.3\\gherkin.19.0.3.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.codecoverage\\17.8.0\\microsoft.codecoverage.17.8.0.nupkg.sha512",

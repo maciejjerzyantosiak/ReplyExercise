@@ -1,7 +1,5 @@
 ﻿using RestSharp;
 using RestSharp.Authenticators;
-using System.Net;
-using System.Threading;
 
 
 namespace Reply.AutomationFramework.Helpers

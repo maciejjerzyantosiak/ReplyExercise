@@ -2,14 +2,7 @@
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium;
-using Reply.AutomationFramework.Drivers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Reply.AutomationFramework.Helpers;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 namespace Reply.AutomationFramework.Setup
