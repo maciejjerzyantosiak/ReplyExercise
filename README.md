@@ -2,9 +2,7 @@
 ## Introduction
 Welcome to the Reply recruitment project, dedicated to automation testing with a focus on ensuring the flawless operation of CRM System Web applications. Within this space, you'll discover detailed instructions on how to set up and execute the project.
     
-## Running the Project
-Local Execution on Windows
-
+# Running the Project locally on windows
 ## Prerequisites:
 .NET 6.0.x, 7.0.x or 8.0.x is installed.
 
