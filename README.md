@@ -12,9 +12,13 @@ Local Execution on Windows
   2. Run **dotnet test ReplyExercise.sln**
 
 **Default browser is Chrome.**
+
 Project can also run on selenium server. To run on selenium server, user has to change config file 
+
 key: **defaultBrowser** to: **remote** 
+
 and 
+
 key: **seleniumServerUrl** to: **valid selenium server url**
 
 **Github actions are configured, so project is executed on every push.**
