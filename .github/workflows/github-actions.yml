@@ -19,4 +19,8 @@ jobs:
       - name: Build ReplyExercise project
         run: dotnet build ReplyExercise.sln
       - name: Run tests
-        run: dotnet test ReplyExercise.sln
+        run: dotnet test ReplyExercise.sln -l "html;LogFileName=TestOutput.html"
+      - uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: Reply.Tests/TestResults/TestOutput.html

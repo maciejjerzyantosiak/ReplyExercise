@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Interactions;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
+using System;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
@@ -21,7 +22,7 @@ namespace Reply.Tests.Pages
         List<IWebElement> ReportsTableRows => _pageLoader.GetVisibleElements(By.CssSelector("div[class='card-body panel-body listview-body'] tr")).ToList();
         List<IWebElement> Pagination => _pageLoader.GetVisibleElements(By.CssSelector("div[class='input-button-group']")).ToList();
         IWebElement RunReport => _pageLoader.GetClickableElement(By.Name("FilterForm_applyButton"));
-        public void WaitUntilElementsClickable()
+        public void WaitUntilElementsNotStale()
         {
             _pageLoader.WaitUntilNotStale(By.CssSelector("div[class='card-body panel-body listview-body'] td a"));
         }
@@ -34,14 +35,14 @@ namespace Reply.Tests.Pages
         }
         public void Search(string text)
         {
-            WaitUntilElementsClickable();
+            WaitUntilElementsNotStale();
             SearchInput.SendKeys(text);
             Thread.Sleep(2000);
             SearchInput.SendKeys(Keys.Enter);
         }
         public void GoToReportPage(string text)
         {
-            WaitUntilElementsClickable();
+            WaitUntilElementsNotStale();
             foreach (IWebElement row in ReportsTable)
             {
                 var row_details = row.FindElements(By.TagName("td"));
@@ -59,13 +60,30 @@ namespace Reply.Tests.Pages
         }
         public int TableCount()
         {
-            WaitUntilElementsClickable();
-            return ReportsTableRows.Count;
+            int rows = 0;
+            var MaxRetries = 3;
+            WaitUntilElementsNotStale();
+            for (int i = 0; i < MaxRetries; i++)
+            {
+                try
+                {
+                    rows = ReportsTableRows.Count;
+                    return rows;
+                }
+                catch (WebDriverTimeoutException)
+                {
+                    Console.WriteLine("INFO - Exception occured when waiting for element to not be present in function TableCount");
+                    Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
+                    Thread.Sleep(3000);
+                    ClickRunReport();
+                }
+            }
+            return rows;
         }
         public string TableText()
         {
             string text = "";
-            WaitUntilElementsClickable();
+            WaitUntilElementsNotStale();
             foreach (IWebElement row in ReportsTableRows)
             {
                 text += row.Text;
