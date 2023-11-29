@@ -10,19 +10,29 @@ namespace Reply.Tests.Pages
     {
         private readonly ScenarioContext _scenarioContext;
         private PageLoader _pageLoader;
+        private Actions action;
         public Home(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
             _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
+            action = new Actions(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
         }
-        IWebElement salesMarketing => _pageLoader.GetVisibleElement(By.Id("grouptab-1"));
-        IWebElement contacts => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=Contacts&action=index']"));
-        public void ClickSalesMarketing() => salesMarketing.Click();
-        public void ClickContacts() => contacts.Click();
+        IWebElement SalesMarketing => _pageLoader.GetVisibleElement(By.Id("grouptab-1"));
+        IWebElement ReportsSettings => _pageLoader.GetVisibleElement(By.Id("grouptab-5"));
+        IWebElement Contacts => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=Contacts&action=index']"));
+        IWebElement Reports => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=Reports&action=index']"));
+        IWebElement ActivityLog => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=ActivityLog&action=index']"));
+        public void ClickSalesMarketing() => SalesMarketing.Click();
+        public void ClickContacts() => Contacts.Click();
+        public void ClickReports() => Reports.Click();
+        public void ClickActivityLog() => ActivityLog.Click();
         public void HoverOverSalesMarketing()
         {
-            Actions action = new Actions(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
-            action.MoveToElement(salesMarketing).Perform();
+            action.MoveToElement(SalesMarketing).Perform();
+        }
+        public void HoverOverReportsSettings()
+        {
+            action.MoveToElement(ReportsSettings).Perform();
         }
     }
 }

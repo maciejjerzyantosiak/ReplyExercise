@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Reply.AutomationFramework.Setup;
 using Reply.Tests.Pages;
 using TechTalk.SpecFlow;
 
@@ -23,14 +24,17 @@ namespace Reply.Tests.Steps
         [When(@"I create a new contact")]
         public void WhenICreateANewContact()
         {
-            var salesHome = new Contacts(_scenarioContext);
-            salesHome.ClickCreate();
+            var contacts = new Contacts(_scenarioContext);
+            contacts.ClickCreate();
+            Dictionary<string, string> contactInfo = contacts.FillContactInfo();
+            _scenarioContext.Set(contactInfo, "ContactInfo");
         }
 
         [Then(@"the contact data should match with entered data")]
         public void ThenTheContactDataShouldMatchWithEnteredData()
         {
-            Assert.IsTrue(true);
+            var contactDetails = new ContactDetails(_scenarioContext);
+            Assert.IsTrue(!_scenarioContext.Get<Dictionary<string, string>>("ContactInfo").Except(contactDetails.returnDetails()).Any());
         }
     }
 }

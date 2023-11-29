@@ -1,6 +1,7 @@
 ﻿using TechTalk.SpecFlow;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
+using Reply.AutomationFramework.Helpers;
 
 namespace Reply.Tests.Hooks
 {
@@ -22,6 +23,8 @@ namespace Reply.Tests.Hooks
             var api = new Api();
             var cookie = api.getCookie();
             _driver.Setup(cookie);
+            var _pageLoader = new PageLoader(_driver);
+            _pageLoader.CloseSystemMessage();
         }
 
         [AfterScenario]

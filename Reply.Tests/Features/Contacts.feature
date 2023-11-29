@@ -1,4 +1,4 @@
-﻿Feature: All features related to the Reply exercise tasks
+﻿Feature: Contacts
 
 Scenario: Create contact
 	Given I am on Contacts page
