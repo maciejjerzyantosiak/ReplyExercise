@@ -1,12 +1,6 @@
 # Reply Exercise - recruitment project
 ## Introduction
 Welcome to the Reply recruitment project, dedicated to automation testing with a focus on ensuring the flawless operation of CRM System Web applications. Within this space, you'll discover detailed instructions on how to set up and execute the project.
-
-## Project Configuration:
-Before we dive into the steps for running the project, here are a few essential configuration notes: 
-
-    1. Default Selenium Server: The project is configured to connect to the Selenium server hosted at ec2-3-80-30-46.compute-1.amazonaws.com by default. You can manually adjust this configuration in the appsettings.json file.
-    2. Remote Access: For remote access and monitoring of the automation progress, you can log in to the server at ec2-3-80-30-46.compute-1.amazonaws.com using Remote Desktop Connection. Credentials for login are provided via email.
     
 ## Running the Project
 Local Execution on Windows
@@ -17,7 +11,7 @@ Local Execution on Windows
   1. Run **dotnet build ReplyExercise.sln**
   2. Run **dotnet test ReplyExercise.sln**
 
-Default browser is Chrome. 
+**Default browser is Chrome. **
 Project can also run on selenium server. To run on selenium server, user has to change config file 
 key: **defaultBrowser** to: **remote** 
 and 
