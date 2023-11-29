@@ -65,7 +65,6 @@ namespace Reply.Tests.Pages
             {
                 try
                 {
-                    
                     action.MoveToElement(Role).Perform();
                     Thread.Sleep(3000);
                     action.Click(Role).Perform();
