@@ -23,6 +23,7 @@ namespace Reply.Tests.Pages
         }
         IWebElement SearchInput => _pageLoader.GetVisibleElement(By.CssSelector("input[class='input-text input-entry ']"));
         List<IWebElement> ReportsTable => _pageLoader.GetVisibleElement(By.CssSelector("div[class='card-body panel-body listview-body']")).FindElements(By.TagName("tr")).ToList();
+        List<IWebElement> ReportsTableRows => _pageLoader.GetVisibleElements(By.TagName("tr")).ToList();
         List<IWebElement> Pagination => _pageLoader.GetVisibleElements(By.CssSelector("div[class='input-button-group']")).ToList();
         IWebElement RunReport => _pageLoader.GetClickableElement(By.Name("FilterForm_applyButton"));
         public void ClickRunReport()
@@ -58,8 +59,7 @@ namespace Reply.Tests.Pages
         public int TableCount()
         {
             _pageLoader.WaitUntilNotStale(By.Name("mass[]"));
-            var test = ReportsTable.Count();
-            return ReportsTable.Count();
+            return ReportsTableRows.Count();
         }
     }
 }

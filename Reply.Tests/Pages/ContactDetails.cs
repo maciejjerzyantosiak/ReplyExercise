@@ -29,7 +29,7 @@ namespace Reply.Tests.Pages
         public Dictionary<string, string> returnDetails()
         {
             Dictionary<string, string> contactData = new Dictionary<string, string>();
-            _pageLoader.GetClickableElement(By.Id("DetailForm_return_list-label"));
+            _pageLoader.WaitUntilNotStale(By.Id("DetailForm_return_list-label"));
             contactData.Add("Category", Summary[0].Text.Replace("Category:\r\n", ""));
             contactData.Add("BusinessRole", BusinessRole.Text);
             var full_name = Name.Text.Split(" ");
