@@ -1,6 +1,6 @@
 # Reply Exercise - recruitment project
 ## Introduction
-Welcome to the Reply recruitment project, dedicated to automation testing with a focus on ensuring the flawless operation of CRM System Web applications. 
+Welcome to the Reply recruitment project, dedicated to automation testing with a focus on ensuring the flawless operation of CRM System Web application. 
     
 # Running the Project locally on windows
 ## Prerequisites:
