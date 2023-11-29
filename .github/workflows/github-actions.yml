@@ -1,9 +1,21 @@
-  steps:
-    - uses: actions/checkout@v3
-    - name: Set up dotnet
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '7.0.0'
-      run: |
-        dotnet build ReplyExercise.sln
-        dotnet test ReplyExercise.sln
+name: dotnet package
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '7.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      # You can test your matrix by printing the current dotnet version
+      - name: Display dotnet version
+        run: dotnet --version
