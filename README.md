@@ -5,8 +5,7 @@ Welcome to the Reply recruitment project, dedicated to automation testing with a
 ## Running the Project
 Local Execution on Windows
     Prerequisites:
-    1. .NET 6.0.x, 7.0.x or 8.0.x is installed.
-    2. .NET SDK is installed.
+        1. DOTNET 6.0.x, 7.0.x or 8.0.x is installed.
 
   1. Run **dotnet build ReplyExercise.sln**
   2. Run **dotnet test ReplyExercise.sln**
