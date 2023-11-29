@@ -15,5 +15,5 @@ Project can also run on selenium server. To run on selenium server, user has to 
   1. key: **defaultBrowser** to: **remote**
   2. key: **seleniumServerUrl** to: **valid selenium server url**
 
-## Github actions are configured, so project is executed on every push.
+## Github actions are configured, so build and tests are executed on every push.
 Link to builds: https://github.com/maciejjerzyantosiak/ReplyExercise/actions
