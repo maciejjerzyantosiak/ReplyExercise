@@ -1,4 +1,4 @@
-name: dotnet test package
+name: dotnet ReplyExercise test project
 
 on: [push]
 
@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
-      # You can test your matrix by printing the current dotnet version
-      - name: Display dotnet version
+      - name: Build ReplyExercise project
         run: dotnet build ReplyExercise.sln
+      - name: Run tests
+        run: dotnet test ReplyExercise.sln
