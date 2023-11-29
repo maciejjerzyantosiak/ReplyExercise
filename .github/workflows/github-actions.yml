@@ -1,4 +1,4 @@
-name: dotnet package
+name: dotnet test package
 
 on: [push]
 
@@ -18,4 +18,4 @@ jobs:
           dotnet-version: ${{ matrix.dotnet-version }}
       # You can test your matrix by printing the current dotnet version
       - name: Display dotnet version
-        run: dotnet --version
+        run: dotnet build ReplyExercise.sln
