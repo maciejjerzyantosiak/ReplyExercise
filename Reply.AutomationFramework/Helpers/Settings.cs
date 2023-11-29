@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Reply.AutomationFramework.Helpers
 {
@@ -18,6 +12,10 @@ namespace Reply.AutomationFramework.Helpers
         public string seleniumServerUrl { get; set; }
         [JsonProperty("testedAppUrl")]
         public string testedAppUrl { get; set; }
+        [JsonProperty("apiUrl")]
+        public string apiUrl { get; set; }
+        [JsonProperty("apiEndPoint")]
+        public string apiEndPoint { get; set; }
         [JsonProperty("exclude")]
         public List<string> exclude { get; set; }
     }

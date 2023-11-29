@@ -1,35 +1,21 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
 
 namespace Reply.AutomationFramework.Helpers
 {
-    public static class ConfigurationManager
+    public class ConfigurationManager
     {
-        public static IConfiguration AppSetting { get; }
-        static ConfigurationManager()
+        public Settings get_config()
         {
-            var test = System.AppDomain.CurrentDomain.BaseDirectory;
-            test = Path.Combine(test, @"..\..\..\..");
-            /*AppSetting = new ConfigurationBuilder()
-                    .AddJsonFile(test + "\\appsettings.json")
-                    .Build();*/
+            Settings settings;
+            var config_path = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory,
+                                           @"..\..\..\..\Reply.AutomationFramework\appsettings.json");
 
-
-
-
-            JsonTextReader reader = new JsonTextReader(new StringReader(test + "\\appsettings.json"));
-        }
-
-        public static void config()
-        {
-            var test = System.AppDomain.CurrentDomain.BaseDirectory;
-            test = Path.Combine(test, @"..\..\..\..");
-            using (StreamReader file = File.OpenText(test + "\\appsettings.json"))
-            using (JsonTextReader reader = new JsonTextReader(file))
+            using (StreamReader file = File.OpenText(config_path))
             {
-                JObject o2 = (JObject)JToken.ReadFrom(reader);
+                JsonSerializer serializer = new JsonSerializer();
+                settings = (Settings)serializer.Deserialize(file, typeof(Settings));
             }
+            return settings;
         }
     }
 }

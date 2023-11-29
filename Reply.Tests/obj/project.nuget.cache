@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "S6J2XCflqFiXSeqU3aAbVPVDl/kTFhBAJ9EULM89R2QSH2j1EjDbwABtw5EsHTqA92UK3+G3u0A1/U7G9vmRwA==",
+  "dgSpecHash": "hjiQ0IjA11zTBmhU4y9zJDM1r6RUjGCvQjPX/5TNvXKPNKidaIsC3eLHhX0bDCmeP0NbDZYDDVHdAt3g6FKkHg==",
   "success": true,
   "projectFilePath": "C:\\Users\\macie\\Documents\\Projects\\DotNet\\ReplyExercise\\Reply.Tests\\Reply.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\macie\\.nuget\\packages\\bodi\\1.5.0\\bodi.1.5.0.nupkg.sha512",
+    "C:\\Users\\macie\\.nuget\\packages\\dotnetseleniumextras.waithelpers\\3.11.0\\dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\dynamitey\\2.0.9.136\\dynamitey.2.0.9.136.nupkg.sha512",
+    "C:\\Users\\macie\\.nuget\\packages\\faker\\1.2.0\\faker.1.2.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\gherkin\\19.0.3\\gherkin.19.0.3.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.codecoverage\\17.8.0\\microsoft.codecoverage.17.8.0.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.csharp\\4.4.1\\microsoft.csharp.4.4.1.nupkg.sha512",
@@ -119,5 +121,16 @@
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
     "C:\\Users\\macie\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Faker 1.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Faker",
+      "targetGraphs": [
+        "net7.0-windows7.0"
+      ]
+    }
+  ]
 }

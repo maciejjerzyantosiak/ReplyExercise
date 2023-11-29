@@ -1,11 +1,7 @@
 ﻿using OpenQA.Selenium;
-using Reply.AutomationFramework.Drivers;
+using OpenQA.Selenium.Interactions;
+using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
@@ -13,12 +9,30 @@ namespace Reply.Tests.Pages
     public class Home
     {
         private readonly ScenarioContext _scenarioContext;
+        private readonly PageLoader _pageLoader;
+        private readonly Actions action;
         public Home(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
+            _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
+            action = new Actions(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
         }
-        IWebElement salesMarketing => _scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver.FindElement(By.Id("grouptab-1"));
-
-        public void ClickSalesMarketing() => salesMarketing.Click();
+        IWebElement SalesMarketing => _pageLoader.GetVisibleElement(By.Id("grouptab-1"));
+        IWebElement ReportsSettings => _pageLoader.GetVisibleElement(By.Id("grouptab-5"));
+        IWebElement Contacts => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=Contacts&action=index']"));
+        IWebElement Reports => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=Reports&action=index']"));
+        IWebElement ActivityLog => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=ActivityLog&action=index']"));
+        public void ClickSalesMarketing() => SalesMarketing.Click();
+        public void ClickContacts() => Contacts.Click();
+        public void ClickReports() => ReportsSettings.Click();
+        public void ClickActivityLog() => ActivityLog.Click();
+        public void HoverOverSalesMarketing()
+        {
+            action.MoveToElement(SalesMarketing).Perform();
+        }
+        public void HoverOverReportsSettings()
+        {
+            action.MoveToElement(ReportsSettings).Perform();
+        }
     }
 }

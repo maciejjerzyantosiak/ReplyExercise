@@ -1,27 +1,29 @@
 ﻿using RestSharp;
 using RestSharp.Authenticators;
-using System.Net;
-using System.Threading;
 
 
 namespace Reply.AutomationFramework.Helpers
 {
     public class Api
     {
-        private readonly RestClient client;
+        private readonly RestClient Client;
+        private ConfigurationManager ConfigManager { get; set; }
+        private Settings Settings { get; set; }
         public Api()
         {
-            var options = new RestClientOptions("https://demo.1crmcloud.com/")
+            ConfigManager = new ConfigurationManager();
+            Settings = ConfigManager.get_config();
+            var options = new RestClientOptions(Settings.apiUrl)
             {
                 Authenticator = new HttpBasicAuthenticator("admin", "admin")
             };
-            client = new RestClient(options);
+            Client = new RestClient(options);
         }
-        public string[] getCookie()
+        public string[] GetCookie()
         {
-            var request = new RestRequest("json.php?action=login", Method.Get);
+            var request = new RestRequest(Settings.apiEndPoint, Method.Get);
             request.AddJsonBody(new { username = "admin", password = "admin" });
-            var cookies = client.Post(request).Cookies;
+            var cookies = Client.Post(request).Cookies;
             return cookies[0].ToString().Split("=");
         }
     }

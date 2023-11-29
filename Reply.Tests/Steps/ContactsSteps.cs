@@ -1,7 +1,5 @@
 using NUnit.Framework;
-using Reply.AutomationFramework.Drivers;
 using Reply.Tests.Pages;
-using System;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Steps
@@ -18,19 +16,24 @@ namespace Reply.Tests.Steps
         public void GivenIAmOnContactsPage()
         {
             var home = new Home(_scenarioContext);
-            home.ClickSalesMarketing();
+            home.HoverOverSalesMarketing();
+            home.ClickContacts();
         }
 
         [When(@"I create a new contact")]
         public void WhenICreateANewContact()
         {
-            Assert.IsTrue(true);
+            var contacts = new Contacts(_scenarioContext);
+            contacts.ClickCreate();
+            Dictionary<string, string> contactInfo = contacts.FillContactInfo();
+            _scenarioContext.Set(contactInfo, "ContactInfo");
         }
 
         [Then(@"the contact data should match with entered data")]
         public void ThenTheContactDataShouldMatchWithEnteredData()
         {
-            Assert.IsTrue(true);
+            var contactDetails = new ContactDetails(_scenarioContext);
+            Assert.IsTrue(!_scenarioContext.Get<Dictionary<string, string>>("ContactInfo").Except(contactDetails.ReturnDetails()).Any());
         }
     }
 }

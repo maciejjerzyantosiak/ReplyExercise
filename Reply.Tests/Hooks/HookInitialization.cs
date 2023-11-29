@@ -1,6 +1,5 @@
 ﻿using TechTalk.SpecFlow;
 using Reply.AutomationFramework.Helpers;
-using Reply.AutomationFramework.Drivers;
 using Reply.AutomationFramework.Setup;
 
 namespace Reply.Tests.Hooks
@@ -8,7 +7,6 @@ namespace Reply.Tests.Hooks
     [Binding]
     public class HookInitialization
     {
-        //private SeleniumDriver _seleniumDriver;
         private readonly ScenarioContext _scenarioContext;
 
         public HookInitialization(ScenarioContext scenarioContext)
@@ -19,11 +17,13 @@ namespace Reply.Tests.Hooks
         [BeforeScenario]
         public void BeforeScenario()
         {
-            Driver _driver = new Driver();
+            Driver _driver = new ();
             _scenarioContext.Set(_driver, "SeleniumDriver");
             var api = new Api();
-            var cookie = api.getCookie();
+            var cookie = api.GetCookie();
             _driver.Setup(cookie);
+            var _pageLoader = new PageLoader(_driver);
+            _pageLoader.CloseSystemMessage();
         }
 
         [AfterScenario]

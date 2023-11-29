@@ -1,0 +1,22 @@
+name: dotnet ReplyExercise test project
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        dotnet-version: [ '7.0.x' ]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup dotnet ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Build ReplyExercise project
+        run: dotnet build ReplyExercise.sln
+      - name: Run tests
+        run: dotnet test ReplyExercise.sln
