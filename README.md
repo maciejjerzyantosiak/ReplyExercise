@@ -17,3 +17,4 @@ Project can also run on selenium server. To run on selenium server, user has to 
 
 ## Github actions are configured, so build and tests are executed on every push.
 Link to builds: https://github.com/maciejjerzyantosiak/ReplyExercise/actions
+HTML report from test run is stored as an artifact.
