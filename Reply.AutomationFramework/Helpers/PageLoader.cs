@@ -1,13 +1,6 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
 using OpenQA.Selenium.Support.UI;
 using Reply.AutomationFramework.Setup;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Reply.AutomationFramework.Helpers
 {
@@ -41,8 +34,36 @@ namespace Reply.AutomationFramework.Helpers
             }
             catch (Exception WebDriverTimeoutException)
             {
-                Console.WriteLine("Exception occured when waiting for element to not be stale");
-                Console.WriteLine("Waiting for 3 seconds and continuing...");
+                Console.WriteLine("INFO - Exception occured when waiting for element to not be stale");
+                Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
+                Thread.Sleep(3000);
+                //logging tbd
+            }
+        }
+        public void WaitUntilPresent(By locator)
+        {
+            try
+            {
+                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(30)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.PresenceOfAllElementsLocatedBy(locator));
+            }
+            catch (Exception WebDriverTimeoutException)
+            {
+                Console.WriteLine("INFO - Exception occured when waiting for element to not be present");
+                Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
+                Thread.Sleep(3000);
+                //logging tbd
+            }
+        }
+        public void WaitUntilClickable(By locator)
+        {
+            try
+            {
+                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(30)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
+            }
+            catch (Exception WebDriverTimeoutException)
+            {
+                Console.WriteLine("INFO - Exception occured when waiting for element to not be clickable");
+                Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
                 Thread.Sleep(3000);
                 //logging tbd
             }

@@ -1,7 +1,5 @@
 using NUnit.Framework;
-using Reply.AutomationFramework.Setup;
 using Reply.Tests.Pages;
-using System;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Steps
@@ -36,6 +34,7 @@ namespace Reply.Tests.Steps
         public void ThenTheIShouldSeeSomeResults()
         {
             Assert.That(_scenarioContext.Get<Reports>("Reports").TableCount() > 0);
+            Assert.That(_scenarioContext.Get<Reports>("Reports").TableText().Count() > 100);
         }
     }
 }

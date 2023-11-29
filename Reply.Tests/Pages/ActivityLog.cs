@@ -1,13 +1,7 @@
-﻿using NUnit.Framework.Interfaces;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
@@ -30,7 +24,7 @@ namespace Reply.Tests.Pages
         {
             _pageLoader.WaitUntilNotStale(By.Name("mass[]"));
             Thread.Sleep(2000);
-            List<string> activites = new List<string>();
+            List<string> activites = new ();
             int count = -1;
             foreach(IWebElement row in ActivityTable)
             {
@@ -45,7 +39,7 @@ namespace Reply.Tests.Pages
         }
         public void DeleteRecords()
         {
-            Actions action = new Actions(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
+            Actions action = new (_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
             action.MoveToElement(Actions).Perform();
             action.Click(Actions).Perform();
             action.MoveToElement(Delete.First()).Perform();

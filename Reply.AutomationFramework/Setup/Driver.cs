@@ -3,7 +3,6 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 using OpenQA.Selenium;
 using Reply.AutomationFramework.Helpers;
-using Newtonsoft.Json;
 
 namespace Reply.AutomationFramework.Setup
 {

@@ -1,7 +1,6 @@
 ﻿using TechTalk.SpecFlow;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
-using Reply.AutomationFramework.Helpers;
 
 namespace Reply.Tests.Hooks
 {
@@ -18,10 +17,10 @@ namespace Reply.Tests.Hooks
         [BeforeScenario]
         public void BeforeScenario()
         {
-            Driver _driver = new Driver();
+            Driver _driver = new ();
             _scenarioContext.Set(_driver, "SeleniumDriver");
             var api = new Api();
-            var cookie = api.getCookie();
+            var cookie = api.GetCookie();
             _driver.Setup(cookie);
             var _pageLoader = new PageLoader(_driver);
             _pageLoader.CloseSystemMessage();

@@ -1,16 +1,8 @@
-﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTalk.SpecFlow;
-using static System.Net.Mime.MediaTypeNames;
 using Faker;
 
 namespace Reply.Tests.Pages
@@ -66,38 +58,55 @@ namespace Reply.Tests.Pages
         }
         public Dictionary<string, string> FillContactInfo()
         {
-
             var contactData = CreateRandomContact();
-            Actions action = new Actions(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
-            action.MoveToElement(Role).Perform();
-            Thread.Sleep(3000);
-            action.Click(Role).Perform();
-            RolePopup.SendKeys(contactData["BusinessRole"]);
-            RolePopupInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
+            Actions action = new(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
+            var MaxRetries = 3;
+            for (int i = 0; i < MaxRetries; i++)
+            {
+                try
+                {
+                    
+                    action.MoveToElement(Role).Perform();
+                    Thread.Sleep(3000);
+                    action.Click(Role).Perform();
+                    RolePopup.SendKeys(contactData["BusinessRole"]);
+                    RolePopupInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
 
-            FirstName.SendKeys(contactData["FirstName"]);
-            LastName.SendKeys(contactData["LastName"]);
+                    FirstName.Clear();
+                    FirstName.SendKeys(contactData["FirstName"]);
+                    LastName.Clear();
+                    LastName.SendKeys(contactData["LastName"]);
 
-            action.MoveToElement(Category).Perform();
-            Thread.Sleep(3000);
-            action.Click(Category).Perform();
-            CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(contactData["Category"]);
-            CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
+                    action.MoveToElement(Category).Perform();
+                    Thread.Sleep(3000);
+                    action.Click(Category).Perform();
+                    CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(contactData["Category"]);
+                    CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
 
-            Save.Click();
+                    Save.Click();
 
+                    return contactData;
+                }
+                catch (WebDriverTimeoutException)
+                {
+                    Console.WriteLine("INFO - Exception occured when waiting for element to not be present in function FillContactInfo");
+                    Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
+                    Thread.Sleep(3000);
+                }
+            }
             return contactData;
+
         }
 
         public Dictionary<string, string> CreateRandomContact()
         {
-            List<string> categories = new List<string>()
+            List<string> categories = new ()
             {
                 "Suppliers",
                 "Customers"
             };
 
-            List<string> businessRole = new List<string>()
+            List<string> businessRole = new ()
             {
                 "CEO",
                 "MIS",
@@ -106,7 +115,7 @@ namespace Reply.Tests.Pages
                 "Admin"
             };
 
-            Dictionary<string, string> contactData = new Dictionary<string, string>();
+            Dictionary<string, string> contactData = new ();
             contactData.Add("FirstName", Faker.NameFaker.FirstName());
             contactData.Add("LastName", Faker.NameFaker.LastName());
             contactData.Add("Category", categories.OrderBy(s => Guid.NewGuid()).First());

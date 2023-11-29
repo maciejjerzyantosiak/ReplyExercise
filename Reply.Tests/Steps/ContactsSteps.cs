@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Reply.AutomationFramework.Setup;
 using Reply.Tests.Pages;
 using TechTalk.SpecFlow;
 
@@ -34,7 +33,7 @@ namespace Reply.Tests.Steps
         public void ThenTheContactDataShouldMatchWithEnteredData()
         {
             var contactDetails = new ContactDetails(_scenarioContext);
-            Assert.IsTrue(!_scenarioContext.Get<Dictionary<string, string>>("ContactInfo").Except(contactDetails.returnDetails()).Any());
+            Assert.IsTrue(!_scenarioContext.Get<Dictionary<string, string>>("ContactInfo").Except(contactDetails.ReturnDetails()).Any());
         }
     }
 }

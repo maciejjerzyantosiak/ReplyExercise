@@ -9,8 +9,8 @@ namespace Reply.Tests.Pages
     public class Home
     {
         private readonly ScenarioContext _scenarioContext;
-        private PageLoader _pageLoader;
-        private Actions action;
+        private readonly PageLoader _pageLoader;
+        private readonly Actions action;
         public Home(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
@@ -24,7 +24,7 @@ namespace Reply.Tests.Pages
         IWebElement ActivityLog => _pageLoader.GetVisibleElement(By.CssSelector("a[href='index.php?module=ActivityLog&action=index']"));
         public void ClickSalesMarketing() => SalesMarketing.Click();
         public void ClickContacts() => Contacts.Click();
-        public void ClickReports() => Reports.Click();
+        public void ClickReports() => ReportsSettings.Click();
         public void ClickActivityLog() => ActivityLog.Click();
         public void HoverOverSalesMarketing()
         {

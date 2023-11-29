@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using Reply.Tests.Pages;
-using System;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Steps
@@ -26,7 +25,7 @@ namespace Reply.Tests.Steps
         {
             var activity = new ActivityLog(_scenarioContext);
             _scenarioContext.Set(activity, "ActivityLog");
-            _scenarioContext.Set(activity.SelectActivityRowsFromTop(3), "SelectedActivities");
+            _scenarioContext.Set(activity.SelectActivityRowsFromTop(p0), "SelectedActivities");
             activity.DeleteRecords();
         }
 
