@@ -1,4 +1,4 @@
-# Reply Exercise - recruitment project
+# Reply Exercise - recruitment project made during technical interview and later incremented.
 ## Introduction
 Welcome to the Reply recruitment project, dedicated to automation testing with a focus on ensuring the flawless operation of CRM System Web application. 
     
