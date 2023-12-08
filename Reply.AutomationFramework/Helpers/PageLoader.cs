@@ -16,8 +16,16 @@ namespace Reply.AutomationFramework.Helpers
             return new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(20))
                                         .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
         }
+        public IWebElement GetExistingElement(By locator)
+        {
+            return new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(_driver.Settings.Timeout))
+                                        .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator));
+        }
+
         public IWebElement GetClickableElement(By locator)
         {
+            WaitUntilExists(locator);
+            WaitUntilNotStale(locator);
             return new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(20))
                                         .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
         }
@@ -30,9 +38,9 @@ namespace Reply.AutomationFramework.Helpers
         {
             try
             {
-                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(30)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.StalenessOf(_driver.SeleniumDriver.FindElement(locator)));
+                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(_driver.Settings.Timeout)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.StalenessOf(_driver.SeleniumDriver.FindElement(locator)));
             }
-            catch (Exception WebDriverTimeoutException)
+            catch (Exception StaleElementReferenceException)
             {
                 Console.WriteLine("INFO - Exception occured when waiting for element to not be stale");
                 Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
@@ -40,25 +48,41 @@ namespace Reply.AutomationFramework.Helpers
                 //logging tbd
             }
         }
-        public void WaitUntilPresent(By locator)
+        public void WaitUntilExists(By locator)
         {
             try
             {
-                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(30)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.PresenceOfAllElementsLocatedBy(locator));
+                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(_driver.Settings.Timeout)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator));
             }
             catch (Exception WebDriverTimeoutException)
             {
-                Console.WriteLine("INFO - Exception occured when waiting for element to not be present");
+                Console.WriteLine("INFO - Exception occured when waiting for element to be existing");
                 Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
                 Thread.Sleep(3000);
                 //logging tbd
             }
         }
+        public void WaitUntilTextToBePresent(By locator, string text)
+        {
+            WaitUntilExists(locator);
+            try
+            {
+                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(_driver.Settings.Timeout)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TextToBePresentInElementLocated(locator, text));
+            }
+            catch (Exception WebDriverTimeoutException)
+            {
+                Console.WriteLine("INFO - Exception occured when waiting for element to be existing");
+                Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
+                Thread.Sleep(3000);
+                //logging tbd
+            }
+        }
+
         public void WaitUntilClickable(By locator)
         {
             try
             {
-                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(30)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
+                new WebDriverWait(_driver.SeleniumDriver, System.TimeSpan.FromSeconds(_driver.Settings.Timeout)).Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
             }
             catch (Exception WebDriverTimeoutException)
             {

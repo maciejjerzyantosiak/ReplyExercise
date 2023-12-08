@@ -4,18 +4,14 @@ using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
 using TechTalk.SpecFlow;
 using Faker;
+using BoDi;
 
 namespace Reply.Tests.Pages
 {
-    public class Contacts
+    public class Contacts: BasePage
     {
-        private readonly ScenarioContext _scenarioContext;
-        private readonly PageLoader _pageLoader;
-        
-        public Contacts(ScenarioContext scenarioContext)
+        public Contacts(IObjectContainer objectContainer) : base(objectContainer)
         {
-            _scenarioContext = scenarioContext;
-            _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
         }
         
         IWebElement Create => _pageLoader.GetVisibleElement(By.Id("listView-92a9-create"));
@@ -59,42 +55,27 @@ namespace Reply.Tests.Pages
         public Dictionary<string, string> FillContactInfo()
         {
             var contactData = CreateRandomContact();
-            Actions action = new(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
-            var MaxRetries = 3;
-            for (int i = 0; i < MaxRetries; i++)
-            {
-                try
-                {
-                    action.MoveToElement(Role).Perform();
-                    Thread.Sleep(3000);
-                    action.Click(Role).Perform();
-                    RolePopup.SendKeys(contactData["BusinessRole"]);
-                    RolePopupInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
+            Actions action = new(_objectContainer.Resolve<Driver>("driver").SeleniumDriver);
+            action.MoveToElement(Role).Perform();
+            Thread.Sleep(3000);
+            action.Click(Role).Perform();
+            RolePopup.SendKeys(contactData["BusinessRole"]);
+            RolePopupInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
 
-                    FirstName.Clear();
-                    FirstName.SendKeys(contactData["FirstName"]);
-                    LastName.Clear();
-                    LastName.SendKeys(contactData["LastName"]);
+            FirstName.Clear();
+            FirstName.SendKeys(contactData["FirstName"]);
+            LastName.Clear();
+            LastName.SendKeys(contactData["LastName"]);
 
-                    action.MoveToElement(Category).Perform();
-                    Thread.Sleep(3000);
-                    action.Click(Category).Perform();
-                    CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(contactData["Category"]);
-                    CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
+            action.MoveToElement(Category).Perform();
+            Thread.Sleep(3000);
+            action.Click(Category).Perform();
+            CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(contactData["Category"]);
+            CategoryInput.FindElement(By.CssSelector("input[class='input-text']")).SendKeys(Keys.Enter);
 
-                    Save.Click();
+            Save.Click();
 
-                    return contactData;
-                }
-                catch (WebDriverTimeoutException)
-                {
-                    Console.WriteLine("INFO - Exception occured when waiting for element to not be present in function FillContactInfo");
-                    Console.WriteLine("INFO - Waiting for 3 seconds and continuing...");
-                    Thread.Sleep(3000);
-                }
-            }
             return contactData;
-
         }
 
         public Dictionary<string, string> CreateRandomContact()

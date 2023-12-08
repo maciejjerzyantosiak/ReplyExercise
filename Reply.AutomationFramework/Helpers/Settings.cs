@@ -5,18 +5,24 @@ namespace Reply.AutomationFramework.Helpers
     public class Settings
     {
         [JsonProperty("defaultBrowser")]
-        public string defaultBrowser { get; set; }
+        public string DefaultBrowser { get; set; }
         [JsonProperty("defaultDriver")]
-        public string defaultDriver { get; set; }
+        public string DefaultDriver { get; set; }
+        [JsonProperty("username")]
+        public string Username { get; set; }
+        [JsonProperty("password")]
+        public string Password { get; set; }
+        [JsonProperty("webdrivertimeout")]
+        public double Timeout { get; set; }
         [JsonProperty("seleniumServerUrl")]
-        public string seleniumServerUrl { get; set; }
+        public string SeleniumServerUrl { get; set; }
         [JsonProperty("testedAppUrl")]
-        public string testedAppUrl { get; set; }
+        public string TestedAppUrl { get; set; }
         [JsonProperty("apiUrl")]
-        public string apiUrl { get; set; }
+        public string ApiUrl { get; set; }
         [JsonProperty("apiEndPoint")]
-        public string apiEndPoint { get; set; }
+        public string ApiEndPoint { get; set; }
         [JsonProperty("exclude")]
-        public List<string> exclude { get; set; }
+        public List<string> Exclude { get; set; }
     }
 }

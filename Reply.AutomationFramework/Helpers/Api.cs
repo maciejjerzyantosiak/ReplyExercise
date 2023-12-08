@@ -7,22 +7,22 @@ namespace Reply.AutomationFramework.Helpers
     public class Api
     {
         private readonly RestClient Client;
-        private ConfigurationManager ConfigManager { get; set; }
-        private Settings Settings { get; set; }
+        public ConfigurationManager ConfigManager { get; set; }
+        public Settings Settings { get; set; }
         public Api()
         {
             ConfigManager = new ConfigurationManager();
-            Settings = ConfigManager.get_config();
-            var options = new RestClientOptions(Settings.apiUrl)
+            Settings = ConfigManager.GetConfig();
+            var options = new RestClientOptions(Settings.ApiUrl)
             {
-                Authenticator = new HttpBasicAuthenticator("admin", "admin")
+                Authenticator = new HttpBasicAuthenticator(Settings.Username, Settings.Password)
             };
             Client = new RestClient(options);
         }
         public string[] GetCookie()
         {
-            var request = new RestRequest(Settings.apiEndPoint, Method.Get);
-            request.AddJsonBody(new { username = "admin", password = "admin" });
+            var request = new RestRequest(Settings.ApiEndPoint, Method.Get);
+            request.AddJsonBody(new { username = Settings.Username, password = Settings.Password });
             var cookies = Client.Post(request).Cookies;
             return cookies[0].ToString().Split("=");
         }
