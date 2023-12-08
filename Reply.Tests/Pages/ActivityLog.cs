@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using BoDi;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
@@ -6,15 +7,11 @@ using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
 {
-    public class ActivityLog
+    public class ActivityLog: BasePage
     {
-        private readonly ScenarioContext _scenarioContext;
-        private readonly PageLoader _pageLoader;
 
-        public ActivityLog(ScenarioContext scenarioContext)
-        {
-            _scenarioContext = scenarioContext;
-            _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
+        public ActivityLog(IObjectContainer objectContainer): base(objectContainer)
+        {          
         }
         List<IWebElement> ActivityTable => _pageLoader.GetVisibleElement(By.CssSelector("div[class='card-body panel-body listview-body']")).FindElements(By.TagName("tr")).ToList();
         List<IWebElement> ActivityTableFull => _pageLoader.GetVisibleElements(By.CssSelector("td[class='listViewTd']")).ToList();
@@ -39,12 +36,12 @@ namespace Reply.Tests.Pages
         }
         public void DeleteRecords()
         {
-            Actions action = new (_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
+            Actions action = new (_objectContainer.Resolve<Driver>("driver").SeleniumDriver);
             action.MoveToElement(Actions).Perform();
             action.Click(Actions).Perform();
             action.MoveToElement(Delete.First()).Perform();
             action.Click(Delete.First()).Perform();
-            _scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver.SwitchTo().Alert().Accept();
+            _objectContainer.Resolve<Driver>("driver").SeleniumDriver.SwitchTo().Alert().Accept();
         }
         public bool VerifyDeletedActivities(List<string> deleted)
         {

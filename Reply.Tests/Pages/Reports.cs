@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using BoDi;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
@@ -7,20 +8,17 @@ using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
 {
-    internal class Reports
+    internal class Reports: BasePage
     {
-        private readonly ScenarioContext _scenarioContext;
-        private readonly PageLoader _pageLoader;
-
-        public Reports(ScenarioContext scenarioContext)
+        public Reports(IObjectContainer objectContainer) : base(objectContainer)
         {
-            _scenarioContext = scenarioContext;
-            _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
         }
-        IWebElement SearchInput => _pageLoader.GetVisibleElement(By.CssSelector("input[class='input-text input-entry ']"));
-        List<IWebElement> ReportsTable => _pageLoader.GetVisibleElement(By.CssSelector("div[class='card-body panel-body listview-body']")).FindElements(By.TagName("tr")).ToList();
-        List<IWebElement> ReportsTableRows => _pageLoader.GetVisibleElements(By.CssSelector("div[class='card-body panel-body listview-body'] tr")).ToList();
-        List<IWebElement> Pagination => _pageLoader.GetVisibleElements(By.CssSelector("div[class='input-button-group']")).ToList();
+        private By ReportsTableBy = By.CssSelector("div[class='card-body panel-body listview-body']");
+        private By ReportsTableRowsBy = By.CssSelector("div[class='card-body panel-body listview-body'] tr");
+        IWebElement SearchInput => _pageLoader.GetClickableElement(By.CssSelector("input[class='input-text input-entry ']"));
+        List<IWebElement> ReportsTable => _pageLoader.GetVisibleElement(ReportsTableBy).FindElements(By.TagName("tr")).ToList();
+        List<IWebElement> ReportsTableRows => _pageLoader.GetVisibleElements(ReportsTableRowsBy).ToList();
+        List<IWebElement> Paginations => _pageLoader.GetVisibleElements(By.CssSelector("div[class='input-button-group']")).ToList();
         IWebElement RunReport => _pageLoader.GetClickableElement(By.Name("FilterForm_applyButton"));
         public void WaitUntilElementsNotStale()
         {
@@ -28,21 +26,19 @@ namespace Reply.Tests.Pages
         }
         public void ClickRunReport()
         {
-            Thread.Sleep(2000);
-            Actions action = new (_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
+            Actions action = new (_objectContainer.Resolve<Driver>("driver").SeleniumDriver);
             action.MoveToElement(RunReport).Perform();
             action.Click(RunReport).Perform();
         }
         public void Search(string text)
         {
-            WaitUntilElementsNotStale();
             SearchInput.SendKeys(text);
             Thread.Sleep(2000);
             SearchInput.SendKeys(Keys.Enter);
         }
         public void GoToReportPage(string text)
         {
-            WaitUntilElementsNotStale();
+            _pageLoader.WaitUntilTextToBePresent(By.CssSelector("div[class='card-body panel-body listview-body'] td a"), text);
             foreach (IWebElement row in ReportsTable)
             {
                 var row_details = row.FindElements(By.TagName("td"));
@@ -55,14 +51,14 @@ namespace Reply.Tests.Pages
                     }
                 }
             }
-            Pagination[0].FindElements(By.TagName("button"))[1].Click();
+            Paginations[0].FindElements(By.TagName("button"))[1].Click();
             GoToReportPage(text);
         }
         public int TableCount()
         {
             int rows = 0;
             var MaxRetries = 3;
-            WaitUntilElementsNotStale();
+            _pageLoader.WaitUntilExists(ReportsTableRowsBy);
             for (int i = 0; i < MaxRetries; i++)
             {
                 try

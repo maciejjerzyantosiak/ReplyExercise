@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using BoDi;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
@@ -6,16 +7,13 @@ using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
 {
-    public class Home
+    public class Home: BasePage
     {
-        private readonly ScenarioContext _scenarioContext;
-        private readonly PageLoader _pageLoader;
         private readonly Actions action;
-        public Home(ScenarioContext scenarioContext)
+
+        public Home(IObjectContainer objectContainer) : base(objectContainer)
         {
-            _scenarioContext = scenarioContext;
-            _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
-            action = new Actions(_scenarioContext.Get<Driver>("SeleniumDriver").SeleniumDriver);
+            action = new Actions(_objectContainer.Resolve<Driver>("driver").SeleniumDriver);
         }
         IWebElement SalesMarketing => _pageLoader.GetVisibleElement(By.Id("grouptab-1"));
         IWebElement ReportsSettings => _pageLoader.GetVisibleElement(By.Id("grouptab-5"));

@@ -1,3 +1,4 @@
+using BoDi;
 using NUnit.Framework;
 using Reply.Tests.Pages;
 using TechTalk.SpecFlow;
@@ -8,14 +9,16 @@ namespace Reply.Tests.Steps
     public class ActivityLogSteps
     {
         private readonly ScenarioContext _scenarioContext;
-        public ActivityLogSteps(ScenarioContext scenarioContext)
+        private readonly IObjectContainer _objectContainer;
+        public ActivityLogSteps(ScenarioContext scenarioContext, IObjectContainer objectContainer)
         {
             _scenarioContext = scenarioContext;
+            _objectContainer = objectContainer;
         }
         [Given(@"I am on activity log page")]
         public void GivenIAmOnActivityLogPage()
         {
-            var home = new Home(_scenarioContext);
+            var home = new Home(_objectContainer);
             home.HoverOverReportsSettings();
             home.ClickActivityLog();
         }
@@ -23,7 +26,7 @@ namespace Reply.Tests.Steps
         [When(@"I delete first (.*) items in the table")]
         public void WhenIDeleteFirstItemsInTheTable(int p0)
         {
-            var activity = new ActivityLog(_scenarioContext);
+            var activity = new ActivityLog(_objectContainer);
             _scenarioContext.Set(activity, "ActivityLog");
             _scenarioContext.Set(activity.SelectActivityRowsFromTop(p0), "SelectedActivities");
             activity.DeleteRecords();

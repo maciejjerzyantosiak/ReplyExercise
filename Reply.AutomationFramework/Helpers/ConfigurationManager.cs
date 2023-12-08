@@ -4,7 +4,7 @@ namespace Reply.AutomationFramework.Helpers
 {
     public class ConfigurationManager
     {
-        public Settings get_config()
+        public Settings GetConfig()
         {
             Settings settings;
             var config_path = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory,

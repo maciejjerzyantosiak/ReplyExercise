@@ -1,19 +1,15 @@
-﻿using OpenQA.Selenium;
+﻿using BoDi;
+using OpenQA.Selenium;
 using Reply.AutomationFramework.Helpers;
 using Reply.AutomationFramework.Setup;
 using TechTalk.SpecFlow;
 
 namespace Reply.Tests.Pages
 {
-    public class ContactDetails
+    public class ContactDetails: BasePage
     {
-        private readonly ScenarioContext _scenarioContext;
-        private readonly PageLoader _pageLoader;
-
-        public ContactDetails(ScenarioContext scenarioContext)
+        public ContactDetails(IObjectContainer objectContainer) : base(objectContainer)
         {
-            _scenarioContext = scenarioContext;
-            _pageLoader = new PageLoader(_scenarioContext.Get<Driver>("SeleniumDriver"));
         }
         IWebElement Name => _pageLoader.GetVisibleElement(By.Id("_form_header"));
         List<IWebElement> Summary => _pageLoader.GetVisibleElements(By.CssSelector("div[class='summary-meta'] > ul[class='summary-list'] > li[class='withLabel']")).ToList();
@@ -24,7 +20,7 @@ namespace Reply.Tests.Pages
         public Dictionary<string, string> ReturnDetails()
         {
             Dictionary<string, string> contactData = new ();
-            _pageLoader.WaitUntilPresent(By.Id("DetailForm_return_list-label"));
+            _pageLoader.WaitUntilExists(By.Id("DetailForm_return_list-label"));
             contactData.Add("Category", Summary[0].Text.Replace("Category:\r\n", ""));
             contactData.Add("BusinessRole", BusinessRole.Text);
             var full_name = Name.Text.Split(" ");
