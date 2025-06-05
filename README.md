@@ -1,4 +1,4 @@
-# Reply Exercise - recruitment project made during technical interview in 2023 and later refactored.
+# Reply Exercise - recruitment project made during technical interview in 2023 and later slightly refactored.
 ## Introduction
 Welcome to the Reply recruitment project, dedicated to automation testing with a focus on ensuring the flawless operation of CRM System Web application. 
     
